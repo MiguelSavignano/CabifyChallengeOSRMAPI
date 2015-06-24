@@ -27,17 +27,23 @@ function GetDataTravel(travel_data){
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
 			.append('<td>'+JourneyPrice(travel_data,route_sumary.total_distance)+'</td>')
-			.append('<td>'+JourneyPrice(travel_data,route_sumary.total_distance)+'</td>')
+			.append('<td>'+DiscountMore10Km(travel_data,route_sumary.total_distance)+'</td>')
 	});
 };
 
 function DiscountMore10Km(travel_data,total_distance){
-	if ((total_distance /1000) < 10)
-		console.log();
+	var discount = 0.15;
+	var total_distance_km = total_distance / 1000;
+	if (total_distance_km > 10){
+		var distance_discount = total_distance_km - 10;
+		return (distance_discount * PricePerKm(travel_data.region)) * (discount); 
+	}
+	else
+		return 0;
 }
 
 function JourneyPrice(travel_data,total_distance){
-	return (total_distance / 100) * PricePerKm(travel_data.region);
+	return (total_distance / 1000) * PricePerKm(travel_data.region);
 };
 
 function PricePerKm(county){
