@@ -157,26 +157,32 @@ var journeys = [
 ]
 
 journeys.map(function(travel_data){
+	if (travel_data.id == 9){
+
+		GetDataTravel(travel_data, true)		
+	}
+	else
 	GetDataTravel(travel_data);
 });
 
-function GetDataTravel(travel_data){
+function GetDataTravel(travel_data,free){
 	$.getJSON("http://router.project-osrm.org/viaroute?"+
 			  "loc="+travel_data.start_loc+
 			  "&loc="+travel_data.end_loc+
 			  "&geometry=false",
 		function (data) {
 			console = data;
-			var route_sumary = data.route_summary
-			var jurney_price = JourneyPrice(travel_data,route_sumary.total_distance/1000);
-			var jurney_discount = DiscountMore10Km(travel_data,route_sumary.total_distance/1000);
+			var route_sumary = data.route_summary;
+			var jurney_price = (!free) ? JourneyPrice(travel_data,route_sumary.total_distance/1000) : "Free";
+			var jurney_discount = (!free) ? DiscountMore10Km(travel_data,route_sumary.total_distance/1000) : "Free";
+			var total_price = (!free) ? (jurney_price - jurney_discount) : "Free";
 			$("tbody").append('<tr>')
 			.append('<td>'+route_sumary.total_distance / 1000+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
 			.append('<td>'+jurney_price+'</td>')
 			.append('<td>'+jurney_discount+'</td>')
-			.append('<td>'+(jurney_price - jurney_discount)+'</td>')
+			.append('<td>'+total_price+'</td>')
 	});
 };
 
