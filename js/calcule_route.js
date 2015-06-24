@@ -22,12 +22,15 @@ function GetDataTravel(travel_data){
 		function (data) {
 			console = data;
 			var route_sumary = data.route_summary
+			var jurney_price = JourneyPrice(travel_data,route_sumary.total_distance/1000);
+			var jurney_discount = DiscountMore10Km(travel_data,route_sumary.total_distance/1000);
 			$("tbody").append('<tr>')
 			.append('<td>'+route_sumary.total_distance / 1000+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
-			.append('<td>'+JourneyPrice(travel_data,route_sumary.total_distance/1000)+'</td>')
-			.append('<td>'+DiscountMore10Km(travel_data,route_sumary.total_distance/1000)+'</td>')
+			.append('<td>'+jurney_price+'</td>')
+			.append('<td>'+jurney_discount+'</td>')
+			.append('<td>'+(jurney_price - jurney_discount)+'</td>')
 	});
 };
 
