@@ -23,12 +23,18 @@ function GetDataTravel(travel_data){
 			console = data;
 			var route_sumary = data.route_summary
 			$("tbody").append('<tr>')
-			.append('<td>'+route_sumary.total_distance / 100+'</td>')
+			.append('<td>'+route_sumary.total_distance / 1000+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
 			.append('<td>'+JourneyPrice(travel_data,route_sumary.total_distance)+'</td>')
+			.append('<td>'+JourneyPrice(travel_data,route_sumary.total_distance)+'</td>')
 	});
 };
+
+function DiscountMore10Km(travel_data,total_distance){
+	if ((total_distance /1000) < 10)
+		console.log();
+}
 
 function JourneyPrice(travel_data,total_distance){
 	return (total_distance / 100) * PricePerKm(travel_data.region);
