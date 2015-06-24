@@ -23,10 +23,26 @@ function GetDataTravel(travel_data){
 			console = data;
 			var route_sumary = data.route_summary
 			$("tbody").append('<tr>')
-			.append('<td>'+route_sumary.total_distance+'</td>')
+			.append('<td>'+route_sumary.total_distance / 100+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
+			.append('<td>'+Currency(travel_data.region)+'</td>')
+			.append('<td>'+(route_sumary.total_distance / 100) * PricePerKm(travel_data.region)+'</td>')
 	});
 };
+
+function PricePerKm(county){
+	switch (county) {
+		  case "ES":
+		  		return 1.5;
+		    break;
+		  case "MX":
+		  		return 14;
+		    break;
+		  case "PE":
+		  		return 2.5;
+		    break;
+	}
+}
 
 function Currency(county){
 	switch (county) {
