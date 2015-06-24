@@ -26,8 +26,12 @@ function GetDataTravel(travel_data){
 			.append('<td>'+route_sumary.total_distance / 100+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
-			.append('<td>'+(route_sumary.total_distance / 100) * PricePerKm(travel_data.region)+'</td>')
+			.append('<td>'+JourneyPrice(travel_data,route_sumary.total_distance)+'</td>')
 	});
+};
+
+function JourneyPrice(travel_data,total_distance){
+	return (total_distance / 100) * PricePerKm(travel_data.region);
 };
 
 function PricePerKm(county){
