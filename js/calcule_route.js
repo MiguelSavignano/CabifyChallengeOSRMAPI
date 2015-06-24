@@ -26,4 +26,21 @@ function GetDataTravel(travel_data){
 			.append('<td>'+route_sumary.total_distance+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 	});
-}
+};
+
+function Currency(county){
+	switch (county) {
+	  case "ES":
+	  		return "EUR";
+	    break;
+	  case "MX":
+	  		return "MXN";
+	    break;
+	  case "PE":
+	  		return "PEN";
+	    break;
+	  default:
+	  		return "USD";
+	   break;
+	}
+};
