@@ -42,7 +42,7 @@ function DiscountMore10Km(travel_data,total_distance_km){
 }
 
 function JourneyPrice(travel_data,total_distance_km){
-	return (total_distance_km / 1000) * PricePerKm(travel_data.region);
+	return (total_distance_km ) * PricePerKm(travel_data.region);
 };
 
 function PricePerKm(county){
