@@ -164,15 +164,18 @@ var joureys_free = [];
 var count_free = 0;
 for (var i = 0; i < journeys.length-1; i++) {
 
+	if (count_free == 2 ){
+		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+		joureys_free.push(journeys[i].id);
+		count_free = 0 ;
+	}
+
+
 	if (journeys[i].user_id == journeys[i+1].user_id ){
 		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
 		count_free++;
 	}
-	if (count_free == 3 ){
-		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
-		joureys_free.push(journeys[i].id);
-		count_free = 0;
-	}
+	
 		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
 
 };
