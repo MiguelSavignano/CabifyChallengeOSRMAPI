@@ -161,23 +161,29 @@ journeys.sort(function(a, b) {
 });
 
 var joureys_free = [];
+var token = journeys[0].user_id;
 var count_free = 0;
-for (var i = 0; i < journeys.length-1; i++) {
+for (var i = 0; i < journeys.length; i++) {
 
-	if (count_free == 2 ){
-		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
-		joureys_free.push(journeys[i].id);
-		count_free = 0 ;
-	}
-
-
-	if (journeys[i].user_id == journeys[i+1].user_id ){
+	if (journeys[i].user_id == token ){
 		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
 		count_free++;
-	}
-	
-		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+		if (count_free == 3 ){
+			console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+			joureys_free.push(journeys[i].id);
+			count_free = 0 ;
+			token = journeys[i].user_id;
 
+		}
+	}
+	else{
+		token = journeys[i].user_id;
+		count_free = 1 ;
+	}
+
+	
+
+		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
 };
 
 journeys.map(function(travel_data){
