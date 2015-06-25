@@ -156,34 +156,35 @@ var journeys = [
    }
 ]
 
-journeys.sort(function(a, b) {
+var journeys_sort = journeys.sort(function(a, b) {
     return (a.user_id) - (b.user_id);
 });
 
 var joureys_free = [];
-var token = journeys[0].user_id;
-var count_free = 0;
-for (var i = 0; i < journeys.length; i++) {
+Find2x3(journeys_sort);
 
-	if (journeys[i].user_id == token ){
-		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
-		count_free++;
-		if (count_free == 3 ){
+function Find2x3(journeys){
+	var token = journeys[0].user_id;
+	var count_free = 0;
+	for (var i = 0; i < journeys.length; i++) {
+
+		if (journeys[i].user_id == token ){
 			console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
-			joureys_free.push(journeys[i].id);
-			count_free = 0 ;
-			token = journeys[i].user_id;
-
+			count_free++;
+			if (count_free == 3 ){
+				console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+				joureys_free.push(journeys[i].id);
+				count_free = 0 ;
+				token = journeys[i].user_id;
+			}
 		}
-	}
-	else{
-		token = journeys[i].user_id;
-		count_free = 1 ;
-	}
+		else{
+			token = journeys[i].user_id;
+			count_free = 1 ;
+		}
+			console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+	};
 
-	
-
-		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
 };
 
 journeys.map(function(travel_data){
