@@ -156,10 +156,30 @@ var journeys = [
    }
 ]
 
-journeys.map(function(travel_data){
-	if (travel_data.id == 9){
+journeys.sort(function(a, b) {
+    return (a.user_id) - (b.user_id);
+});
 
-		GetDataTravel(travel_data, true)		
+var joureys_free = [];
+var count_free = 0;
+for (var i = 0; i < journeys.length-1; i++) {
+
+	if (journeys[i].user_id == journeys[i+1].user_id ){
+		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+		count_free++;
+	}
+	if (count_free == 3 ){
+		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+		joureys_free.push(journeys[i].id);
+		count_free = 0;
+	}
+		console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+
+};
+
+journeys.map(function(travel_data){
+	if (joureys_free.indexOf(travel_data.id) != -1){
+		GetDataTravel(travel_data, true);	
 	}
 	else
 	GetDataTravel(travel_data);
