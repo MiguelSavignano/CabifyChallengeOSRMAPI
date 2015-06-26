@@ -187,7 +187,7 @@ function Find3x2(journeys){
 function created_at(json){
   if (!json.created_at)
     return json.time;
-  return json.created_at
+    return json.created_at
 }
 
 journeys.map(function(travel_data){
@@ -195,7 +195,7 @@ journeys.map(function(travel_data){
 		GetDataTravel(travel_data, true);	
 	}
 	else
-	GetDataTravel(travel_data);
+	  GetDataTravel(travel_data);
 });
 
 function GetDataTravel(travel_data,free){
@@ -210,6 +210,9 @@ function GetDataTravel(travel_data,free){
 			var jurney_discount = (!free) ? DiscountMore10Km(travel_data,route_sumary.total_distance/1000) : "Free";
 			var total_price = (!free) ? (jurney_price - jurney_discount) : "Free";
 			$("tbody").append('<tr>')
+
+      .append('<td>'+travel_data.user_id+'</td>')
+      .append('<td>'+created_at(travel_data).substring(0, 10)+'</td>')
 			.append('<td>'+route_sumary.total_distance / 1000+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
