@@ -158,14 +158,15 @@ var journeys = [
 
 
 var journeys_free = [];
+
 Find3x2(journeys);
 
 function Find3x2(journeys){
 	var token = journeys[0];
 	var count_free = 0;
 	for (var i = 0; i < journeys.length; i++) {
-    console.log( created_at(journeys[i]).substring(0, 10)+" "+ journeys[i].user_id);
-		if ((journeys[i].user_id == token.user_id)  && ( created_at(token).substring(0, 10) == created_at(journeys[i]).substring(0, 10) ) ){
+    console.log( extract_date(created_at(journeys[i]))+" "+ journeys[i].user_id);
+		if ((journeys[i].user_id == token.user_id)  && ( extract_date(created_at(token)) == extract_date(created_at(journeys[i])) ) ){
 			// console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i );
 			count_free++;
 			if (count_free == 3 ){
@@ -184,9 +185,14 @@ function Find3x2(journeys){
 
 };
 
+function extract_date(date){
+  return date.substring(0, 10);
+};
+
 function created_at(json){
   if (!json.created_at)
     return json.time;
+
     return json.created_at
 }
 
@@ -195,7 +201,7 @@ journeys.map(function(travel_data){
 		GetDataTravel(travel_data, true);	
 	}
 	else
-	  GetDataTravel(travel_data);
+	  GetDataTravel(travel_data,false);
 });
 
 function GetDataTravel(travel_data,free){
@@ -212,7 +218,7 @@ function GetDataTravel(travel_data,free){
 			$("tbody").append('<tr>')
 
       .append('<td>'+travel_data.user_id+'</td>')
-      .append('<td>'+created_at(travel_data).substring(0, 10)+'</td>')
+      .append('<td>'+ extract_date(created_at(travel_data) )+'</td>')
 			.append('<td>'+route_sumary.total_distance / 1000+'</td>')
 			.append('<td>'+route_sumary.total_time+'</td>')
 			.append('<td>'+Currency(travel_data.region)+'</td>')
