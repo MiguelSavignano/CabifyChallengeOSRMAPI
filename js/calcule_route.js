@@ -156,39 +156,42 @@ var journeys = [
    }
 ]
 
-var journeys_sort = journeys.sort(function(a, b) {
-    return (a.user_id) - (b.user_id);
-});
 
-var joureys_free = [];
-Find2x3(journeys_sort);
+var journeys_free = [];
+Find3x2(journeys);
 
-function Find2x3(journeys){
-	var token = journeys[0].user_id;
+function Find3x2(journeys){
+	var token = journeys[0];
 	var count_free = 0;
 	for (var i = 0; i < journeys.length; i++) {
-
-		if (journeys[i].user_id == token ){
-			console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+    console.log( created_at(journeys[i]).substring(0, 10)+" "+ journeys[i].user_id);
+		if ((journeys[i].user_id == token.user_id)  && ( created_at(token).substring(0, 10) == created_at(journeys[i]).substring(0, 10) ) ){
+			// console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i );
 			count_free++;
 			if (count_free == 3 ){
-				console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
-				joureys_free.push(journeys[i].id);
+				// console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+				journeys_free.push(journeys[i].id);
 				count_free = 0 ;
-				token = journeys[i].user_id;
+				token = journeys[i];
 			}
 		}
 		else{
-			token = journeys[i].user_id;
+			token = journeys[i];
 			count_free = 1 ;
 		}
-			console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
+			// console.log("free: "+count_free +" user_id: "+journeys[i].user_id +" i:"+ i);
 	};
 
 };
 
+function created_at(json){
+  if (!json.created_at)
+    return json.time;
+  return json.created_at
+}
+
 journeys.map(function(travel_data){
-	if (joureys_free.indexOf(travel_data.id) != -1){
+	if (journeys_free.indexOf(travel_data.id) != -1){
 		GetDataTravel(travel_data, true);	
 	}
 	else
